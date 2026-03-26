@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NETFLIX</title>
+    <style>
+        :root {
+            --bg-color: #141414;
+            --title-color: #ffffff;
+            --text-color: #aaaaaa;
+            --hover-text-color: #ffffff;
+            --hover-border-color: #ffffff;
+            --toggle-bg: #2b2b2b;
+            --toggle-text: #ffffff;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f2f2f2;
+            --title-color: #1c1c1c;
+            --text-color: #444444;
+            --hover-text-color: #000000;
+            --hover-border-color: #1c1c1c;
+            --toggle-bg: #1c1c1c;
+            --toggle-text: #f2f2f2;
+        }
+
+        * {
+            margin: 0; /* Remove a margem padrão de todos os elementos. */
+            padding: 0; /* Remove o preenchimento interno padrão de todos os elementos. */
+            box-sizing: border-box; /* Faz largura/altura incluírem padding e borda no cálculo total. */
+        }
+
+        body {
+            background-color: var(--bg-color); /* Define a cor de fundo principal conforme o tema ativo. */
+            font-family: 'Arial', sans-serif; /* Define a família tipográfica base do conteúdo. */
+            display: flex; /* Ativa o Flexbox para facilitar o alinhamento interno. */
+            justify-content: center; /* Centraliza horizontalmente o conteúdo dentro do body. */
+            align-items: center; /* Centraliza verticalmente o conteúdo dentro do body. */
+            min-height: 100vh; /* Garante que o body ocupe no mínimo toda a altura da tela. */
+            transition: background-color 0.25s ease; /* Suaviza a troca de tema no fundo da página. */
+        }
+
+        main {
+            text-align: center; /* Centraliza horizontalmente os textos dentro da área principal. */
+        }
+
+        h1 {
+            color: var(--title-color); /* Define a cor do título conforme o tema ativo. */
+            font-size: 2rem; /* Ajusta o tamanho da fonte do título para destaque. */
+            margin-bottom: 2rem; /* Cria espaço abaixo do título. */
+            letter-spacing: 2px; /* Aumenta o espaçamento entre letras do título. */
+            transition: color 0.25s ease; /* Suaviza a mudança de cor do título ao trocar tema. */
+        }
+
+        .theme-toggle {
+            background-color: var(--toggle-bg);
+            color: var(--toggle-text);
+            border: none;
+            border-radius: 999px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.88;
+        }
+
+        .container {
+            list-style: none; /* Remove os marcadores padrão da lista não ordenada. */
+            display: flex; /* Organiza os perfis em layout flexível. */
+            justify-content: center; /* Centraliza os itens da linha no eixo horizontal. */
+            gap: 2rem; /* Define o espaçamento entre os perfis. */
+            flex-wrap: wrap; /* Permite quebrar para a próxima linha em telas menores. */
+        }
+
+        .profile {
+            cursor: pointer; /* Mostra cursor de clique ao passar sobre o perfil. */
+            transition: transform 0.2s ease; /* Suaviza a animação de escala do perfil. */
+        }
+
+        .profile:hover {
+            transform: scale(1.08); /* Aumenta levemente o perfil ao passar o mouse. */
+        }
+
+        .profile img {
+            width: 150px; /* Define a largura fixa da imagem do perfil. */
+            height: 150px; /* Define a altura fixa da imagem do perfil. */
+            border-radius: 8px; /* Arredonda os cantos da imagem. */
+            object-fit: cover; /* Preenche a área sem distorcer, cortando o excedente se necessário. */
+            border: 3px solid transparent; /* Reserva espaço de borda sem exibir cor inicialmente. */
+            transition: border-color 0.2s ease; /* Suaviza a mudança de cor da borda no hover. */
+        }
+
+        .profile:hover img {
+            border-color: var(--hover-border-color); /* Torna a borda da imagem com cor de destaque do tema. */
+        }
+
+        .profile p {
+            color: var(--text-color); /* Define a cor padrão do nome do perfil conforme o tema. */
+            margin-top: 0.75rem; /* Cria espaço entre a imagem e o texto do perfil. */
+            font-size: 1.1rem; /* Ajusta o tamanho do texto do nome do perfil. */
+            letter-spacing: 1px; /* Aumenta um pouco o espaçamento entre letras do texto. */
+            transition: color 0.25s ease; /* Suaviza a mudança de cor do texto ao trocar tema. */
+        }
+
+        .profile:hover p {
+            color: var(--hover-text-color); /* Muda o texto do perfil para a cor de destaque no hover. */
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar entre tema claro e escuro">Modo claro</button>
+        <h1>QUEM ESTÁ ASSISTINDO?  </h1>
+        <ul class="container">
+            <li class="profile">
+                <img src="/assets/avatar_1.png" alt="Usuário 1">
+                <p>Vânia Melo</p>
+            </li>
+            <li class="profile">
+                <img src="/assets/avatar_2.png" alt="Usuário 2">
+                <p>Francisco</p>
+            </li>
+            <li class="profile">
+                <img src="/assets/avatar_3.png" alt="Usuário 3">
+                <p>Paulo</p>
+            </li>
+            <li class="profile">
+                <img src="/assets/avatar_4.png" alt="Usuário 4">
+                <p>Matheus</p>
+            </li>
+        </ul>
+    </main>
+    <script>
+        const toggleButton = document.getElementById('themeToggle');
+        const root = document.documentElement;
+        const storedTheme = localStorage.getItem('theme');
+
+        if (storedTheme === 'light') {
+            root.setAttribute('data-theme', 'light');
+            toggleButton.textContent = 'Modo escuro';
+        }
+
+        toggleButton.addEventListener('click', function () {
+            const isLight = root.getAttribute('data-theme') === 'light';
+
+            if (isLight) {
+                root.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                toggleButton.textContent = 'Modo claro';
+            } else {
+                root.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                toggleButton.textContent = 'Modo escuro';
+            }
+        });
+    </script>
+</body>
+</html>

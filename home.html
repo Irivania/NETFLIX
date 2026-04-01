@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Home</title>
+    <style>
+        :root {
+            --bg-color: #141414;
+            --title-color: #ffffff;
+            --text-color: #aaaaaa;
+            --accent-color: #e50914;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--title-color);
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-badge {
+            background-color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .btn-change-profile {
+            background-color: transparent;
+            border: 2px solid var(--title-color);
+            color: var(--title-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-change-profile:hover {
+            background-color: var(--title-color);
+            color: var(--bg-color);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: #1c1c1c;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .welcome-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .welcome-section p {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background-color: #2b2b2b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .info-box strong {
+            color: var(--accent-color);
+        }
+
+        .error-message {
+            background-color: #8b1a1a;
+            padding: 1rem;
+            border-radius: 4px;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .success-message {
+            background-color: #1a5f1a;
+            padding: 1rem;
+            border-radius: 4px;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .catalogo-section {
+            margin-top: 3rem;
+        }
+
+        .catalogo-section h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.75rem;
+        }
+
+        #filmes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            list-style: none;
+            padding: 0;
+        }
+
+        #filmes li {
+            background-color: #2b2b2b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        #filmes li:hover {
+            background-color: #3b3b3b;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(229, 9, 20, 0.3);
+        }
+
+        #filmes li p {
+            color: var(--title-color);
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .filmes-vazio {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">NETFLIX</div>
+        <div id="nomePerfil" style="font-size: 1.1rem; font-weight: 500;">Bem-vindo!</div>
+        <div class="profile-info">
+            <span id="perfilAtual" class="profile-badge">Carregando...</span>
+            <button class="btn-change-profile" onclick="mudarPerfil()">Trocar Perfil</button>
+        </div>
+    </header>
+
+    <main class="content">
+        <div id="alertas"></div>
+
+        <section class="welcome-section">
+            <h2 id="titleBemVindo">Bem-vindo!</h2>
+            <p id="descricaoPerfil">Carregando dados do perfil...</p>
+            <div class="info-box">
+                <p><strong>Dados do Perfil:</strong></p>
+                <p>URL: <code id="urlInfo">-</code></p>
+                <p>LocalStorage: <code id="localStorageInfo">-</code></p>
+                <p>Tempo de acesso: <code id="dataAccesso">-</code></p>
+            </div>
+        </section>
+
+        <section class="catalogo-section">
+            <h3>🎬 Catálogo Personalizado</h3>
+            <ul id="filmes"></ul>
+        </section>
+    </main>
+
+    <script>
+        // ========== MAPEAMENTO DE NOMES DE PERFIS ==========
+        
+        // Objeto com mapeamento de identificadores para nomes completos
+        const mapeamentoNomes = {
+            "vania": "Vânia Melo",
+            "vânia": "Vânia Melo",
+            "francisco": "Francisco",
+            "paulo": "Paulo",
+            "matheus": "Matheus",
+            "vania": "Vânia Melo"  // Alternativa sem til
+        };
+
+        // ========== SCRIPT DE CAPTURA E GESTÃO DE PERFIL ==========
+
+        // 1. Capturar perfil da URL (parâmetro ?perfil=)
+        function obterPerfilDaURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('perfil');
+        }
+
+        // 2. Capturar perfil do localStorage
+        function obterPerfilArmazenado() {
+            return localStorage.getItem('perfilSelecionado');
+        }
+
+        // 3. Normalizar nome de perfil usando mapeamento
+        function normalizarNomePerfil(nome) {
+            if (!nome) return 'Convidado';
+            
+            // Tentar encontrar no mapeamento (case-insensitive)
+            const nomeLower = nome.toLowerCase().trim();
+            if (mapeamentoNomes[nomeLower]) {
+                return mapeamentoNomes[nomeLower];
+            }
+            
+            // Se não encontrar, retornar o nome original
+            return nome;
+        }
+
+        // 4. Determinar qual perfil usar (URL tem prioridade)
+        function obterPerfilAtual() {
+            const perfilURL = obterPerfilDaURL();
+            const perfilArmazenado = obterPerfilArmazenado();
+            
+            // Se veio da URL, atualiza o localStorage
+            if (perfilURL) {
+                localStorage.setItem('perfilSelecionado', perfilURL);
+                return normalizarNomePerfil(perfilURL);
+            }
+            
+            // Caso contrário, usa o armazenado
+            return normalizarNomePerfil(perfilArmazenado || 'Convidado');
+        }
+
+        // 5. Inicializar página com dados do perfil
+        function inicializarPagina() {
+            const perfil = obterPerfilAtual();
+            const urlSelecionada = obterPerfilDaURL();
+            const dataAtual = new Date().toLocaleString('pt-BR');
+
+            // Atualizar elementos da página
+            document.getElementById('perfilAtual').textContent = perfil;
+            document.getElementById('nomePerfil').textContent = 'Bem-vindo, ' + perfil;
+            document.getElementById('titleBemVindo').textContent = `Bem-vindo, ${perfil}!`;
+            document.getElementById('descricaoPerfil').textContent = 
+                `Você está logado como ${perfil}. Aproveite a experiência Netflix personalizada para este perfil.`;
+            
+            // Exibir informações de debug
+            document.getElementById('urlInfo').textContent = urlSelecionada || 'Recuperado do localStorage';
+            document.getElementById('localStorageInfo').textContent = obterPerfilArmazenado();
+            document.getElementById('dataAccesso').textContent = dataAtual;
+
+            // Mostrar alerta se perfil foi recuperado do localStorage
+            if (!urlSelecionada && obterPerfilArmazenado()) {
+                exibirAlerta(
+                    `Perfil recuperado do localStorage: <strong>${perfil}</strong>`,
+                    'success'
+                );
+            }
+        }
+
+        // 6. Função para mudar de perfil
+        function mudarPerfil() {
+            // Limpar dados do perfil anterior
+            localStorage.removeItem('perfilSelecionado');
+            
+            // Redirecionar para a página de seleção de perfil
+            window.location.href = 'index.html';
+        }
+
+        // 7. Função para exibir alertas
+        function exibirAlerta(mensagem, tipo) {
+            const alertasDiv = document.getElementById('alertas');
+            const alerta = document.createElement('div');
+            alerta.className = `${tipo}-message`;
+            alerta.innerHTML = mensagem;
+            alertasDiv.appendChild(alerta);
+
+            // Remover alerta após 5 segundos
+            setTimeout(() => alerta.remove(), 5000);
+        }
+
+        // ========== CATÁLOGO DE FILMES PERSONALIZADO POR PERFIL ==========
+        
+        // 🎬 Dados de filmes por perfil (personalizado)
+        const catalogoFilmes = {
+            "Vânia Melo": [
+                "Interestelar",
+                "Matrix",
+                "Vingadores: Ultimato",
+                "Inception",
+                "O Cavaleiro das Trevas"
+            ],
+            "Francisco": [
+                "Invocação do Mal",
+                "It: A Coisa",
+                "O Exorcista",
+                "Annabelle",
+                "A Maldição de Bly Manor"
+            ],
+            "Paulo": [
+                "Minecraft: O Filme",
+                "Free Fire - A Batalha",
+                "Roblox Adventures",
+                "Fortnite: Salve o Mundo",
+                "Among Us: O Filme"
+            ],
+            "Matheus": [
+                "Peppa Pig",
+                "Carros",
+                "Toy Story",
+                "Patrulha Canina",
+                "O Rei Leão"
+            ]
+        };
+
+        // 8. Função para carregar filmes do catálogo personalizado
+        function carregarCatalogo() {
+            const perfil = obterPerfilAtual();
+            const listaFilmes = document.getElementById('filmes');
+            
+            // Limpar lista anterior
+            listaFilmes.innerHTML = '';
+
+            // Verificar se existe catálogo para o perfil
+            if (catalogoFilmes[perfil] && catalogoFilmes[perfil].length > 0) {
+                catalogoFilmes[perfil].forEach(filme => {
+                    const itemLista = document.createElement('li');
+                    const paragrafo = document.createElement('p');
+                    paragrafo.innerText = filme;
+                    itemLista.appendChild(paragrafo);
+                    listaFilmes.appendChild(itemLista);
+                });
+            } else {
+                // Mensagem se nenhum filme for encontrado
+                const msgVazio = document.createElement('div');
+                msgVazio.className = 'filmes-vazio';
+                msgVazio.innerHTML = '📚 Nenhum conteúdo encontrado para este perfil.';
+                listaFilmes.appendChild(msgVazio);
+            }
+        }
+
+        // 9. Função para inicializar página (incluindo catálogo)
+        const inicializarPaginaOriginal = inicializarPagina;
+        function inicializarPaginaComCatalogo() {
+            inicializarPaginaOriginal();
+            carregarCatalogo();
+        }
+
+        // Executar ao carregar a página
+        window.addEventListener('DOMContentLoaded', inicializarPaginaComCatalogo);
+    </script>
+</body>
+</html>

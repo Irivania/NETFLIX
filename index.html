@@ -79,11 +79,13 @@
 
         .profile {
             cursor: pointer; /* Mostra cursor de clique ao passar sobre o perfil. */
-            transition: transform 0.2s ease; /* Suaviza a animação de escala do perfil. */
+            transition: transform 0.2s ease, filter 0.2s ease; /* Suaviza animação de escala e filtro do perfil. */
+            user-select: none; /* Impede seleção de texto ao clicar no perfil. */
         }
 
         .profile:hover {
             transform: scale(1.08); /* Aumenta levemente o perfil ao passar o mouse. */
+            filter: brightness(1.1); /* Ligeiramente mais brilhante no hover para feedback visual. */
         }
 
         .profile img {
@@ -117,25 +119,48 @@
         <button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar entre tema claro e escuro">Modo claro</button>
         <h1>QUEM ESTÁ ASSISTINDO?  </h1>
         <ul class="container">
-            <li class="profile">
+            <li class="profile" onclick="entrarPerfil('Vânia Melo')">
                 <img src="/assets/avatar_1.png" alt="Usuário 1">
                 <p>Vânia Melo</p>
             </li>
-            <li class="profile">
+            <li class="profile" onclick="entrarPerfil('Francisco')">
                 <img src="/assets/avatar_2.png" alt="Usuário 2">
                 <p>Francisco</p>
             </li>
-            <li class="profile">
+            <li class="profile" onclick="entrarPerfil('Paulo')">
                 <img src="/assets/avatar_3.png" alt="Usuário 3">
                 <p>Paulo</p>
             </li>
-            <li class="profile">
+            <li class="profile" onclick="entrarPerfil('Matheus')">
                 <img src="/assets/avatar_4.png" alt="Usuário 4">
                 <p>Matheus</p>
             </li>
         </ul>
     </main>
     <script>
+        // ========== SISTEMA DE SELEÇÃO DE PERFIL ==========
+        
+        // Função para redirecionar e armazenar perfil selecionado
+        function entrarPerfil(perfil) {
+            // Armazena o perfil no localStorage para recuperação posterior
+            localStorage.setItem('perfilSelecionado', perfil);
+            
+            // Redireciona para a página home passando o perfil como parâmetro na URL
+            window.location.href = "home.html?perfil=" + encodeURIComponent(perfil);
+        }
+
+        // Função auxiliar para capturar perfil da URL
+        function obterPerfilDaURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('perfil');
+        }
+
+        // Função para obter perfil do localStorage
+        function obterPerfilArmazenado() {
+            return localStorage.getItem('perfilSelecionado');
+        }
+
+        // ========== GERENCIADOR DE TEMA (CLARO/ESCURO) ==========
         const toggleButton = document.getElementById('themeToggle');
         const root = document.documentElement;
         const storedTheme = localStorage.getItem('theme');

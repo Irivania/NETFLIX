@@ -1,11 +1,23 @@
 /**
  * RESPONSIVE.CSS
- * Media queries e ajustes responsivos para dispositivos móveis
- * Breakpoint principal: 768px
+ * Media queries para responsividade e preferências de acessibilidade.
+ * Breakpoints: 1024px (tablet), 768px (mobile), 480px (mobile pequeno).
  */
 
+/* =============================================
+   TABLET / NOTEBOOK PEQUENO
+   ============================================= */
+@media (max-width: 1024px) {
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+/* =============================================
+   MOBILE (até 768px)
+   ============================================= */
 @media (max-width: 768px) {
-  /* Profile Page Responsivo */
+  /* Header da página de perfis */
   .brand-header {
     padding: 16px 20px;
   }
@@ -15,84 +27,127 @@
   }
 
   .profile-page__title {
-    font-size: clamp(24px, 3vw, 36px);
+    font-size: clamp(24px, 5vw, 36px);
     margin-bottom: 36px;
   }
 
-  .profiles,
   .profile-page__list {
     gap: 20px;
   }
 
-  .profile-card img {
+  .profile-card__avatar,
+  .profile-card__avatar-placeholder {
     width: 120px;
     height: 120px;
   }
 
-  /* App Header Responsivo */
+  .profile-card__avatar-placeholder {
+    font-size: 36px;
+  }
+
+  /* Header do catálogo */
   .app-header {
-    padding: 14px 16px;
+    padding: 12px 16px;
   }
 
   .app-header__actions {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
-  /* Catalog Page Responsivo */
+  /* Conteúdo do catálogo */
   .catalog-page {
-    padding: 16px;
+    padding: 20px 16px 40px;
   }
 
   .catalog-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
   }
 
-  /* Modal Responsivo */
+  /* Modal */
   .trailer-modal__dialog {
     width: 96vw;
   }
 
   .trailer-modal__close {
-    width: 28px;
-    height: 28px;
-    font-size: 16px;
+    width: 30px;
+    height: 30px;
   }
 
   .trailer-modal__sound {
-    right: 44px;
-    font-size: 12px;
+    right: 48px;
+    font-size: var(--font-size-xs);
     padding: 6px 10px;
   }
 }
 
+/* =============================================
+   MOBILE PEQUENO (até 480px)
+   ============================================= */
 @media (max-width: 480px) {
-  /* Ajustes para telas muito pequenas */
   .brand-header {
     padding: 12px 16px;
   }
 
   .profile-page__manage-btn {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     padding: 8px 20px;
   }
 
-  .profile-card img {
-    width: 100px;
-    height: 100px;
+  .profile-card__avatar,
+  .profile-card__avatar-placeholder {
+    width: 90px;
+    height: 90px;
+  }
+
+  .profile-card__avatar-placeholder {
+    font-size: 28px;
   }
 
   .catalog-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
   .app-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 8px;
   }
 
   .app-header__actions {
-    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .toast {
+    width: calc(100% - 32px);
+    text-align: center;
+  }
+}
+
+/* =============================================
+   PREFERÊNCIA: MENOS MOVIMENTO (acessibilidade)
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .movie-card {
+    transition: none;
+  }
+
+  .movie-card:hover {
+    transform: none;
+  }
+
+  .profile-card {
+    transition: none;
+  }
+
+  .profile-card:hover {
+    transform: none;
+  }
+
+  .trailer-modal__dialog,
+  .trailer-modal__backdrop {
+    animation: none;
   }
 }

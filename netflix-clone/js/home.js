@@ -5,6 +5,12 @@
  */
 
 const HOVER_PREVIEW_DELAY_MS = 800;
+const COVER_FALLBACK_GRADIENTS = [
+  "linear-gradient(135deg, #1f2937 0%, #111827 100%)",
+  "linear-gradient(135deg, #312e81 0%, #1f2937 100%)",
+  "linear-gradient(135deg, #7f1d1d 0%, #1f2937 100%)",
+  "linear-gradient(135deg, #14532d 0%, #1f2937 100%)"
+];
 
 /**
  * Estado central da tela para reduzir variaveis globais soltas.
@@ -31,7 +37,8 @@ const ui = {
   trailerModal: document.getElementById("trailerModal"),
   trailerFrame: document.getElementById("trailerFrame"),
   trailerCloseButton: document.getElementById("closeTrailer"),
-  trailerSoundButton: document.getElementById("soundTrailer")
+  trailerSoundButton: document.getElementById("soundTrailer"),
+  openYoutubeLink: document.getElementById("openYoutube")
 };
 
 function initializeApp() {
@@ -148,17 +155,57 @@ function createMovieCard(movie) {
     <div class="card-media">
       <img src="${movie.img}" alt="${movie.titulo}" loading="lazy" />
       <iframe class="card-trailer" src="" title="Trailer ${movie.titulo}" allow="autoplay; encrypted-media" allowfullscreen tabindex="-1"></iframe>
+      <div class="card-media__fallback" aria-hidden="true">
+        <span class="card-media__fallback-initials">${getMovieInitials(movie.titulo)}</span>
+        <span class="card-media__fallback-title">${movie.titulo}</span>
+      </div>
     </div>
-    <h3>${movie.titulo}</h3>
+    <h3 class="movie-card__title">${movie.titulo}</h3>
     <div class="movie-actions">
       <a class="play-link" href="${movie.trailer}" data-action="open-trailer" data-trailer="${movie.trailer}">Assistir trailer</a>
       <button class="list-btn${listButtonModifier}" type="button" data-action="toggle-list" data-title="${movie.titulo}">${listButtonLabel}</button>
     </div>
   `;
 
+  attachImageFallback(card, movie);
   attachHoverPreview(card, movie.trailer);
 
   return card;
+}
+
+function getMovieInitials(title) {
+  const words = title
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase() || "");
+
+  return words.join("") || "MV";
+}
+
+function buildFallbackGradient(title) {
+  const hash = [...title].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return COVER_FALLBACK_GRADIENTS[hash % COVER_FALLBACK_GRADIENTS.length];
+}
+
+/**
+ * Evita cards sem imagem: quando capa falha, aplica placeholder visual local.
+ */
+function attachImageFallback(card, movie) {
+  const media = card.querySelector(".card-media");
+  const image = card.querySelector("img");
+  if (!media || !image) {
+    return;
+  }
+
+  image.addEventListener(
+    "error",
+    () => {
+      media.classList.add("card-media--fallback");
+      media.style.background = buildFallbackGradient(movie.titulo);
+    },
+    { once: true }
+  );
 }
 
 /**
@@ -237,6 +284,18 @@ function openTrailerModal(trailerUrl, triggerElement) {
 
   // Clique em "Assistir trailer" é gesto do usuario, entao abre com som.
   ui.trailerFrame.src = buildTrailerUrl(trailerUrl, false);
+
+  // Atualiza link de fallback para abrir no YouTube
+  if (ui.openYoutubeLink) {
+    try {
+      const embedUrl = new URL(trailerUrl);
+      const videoId = embedUrl.pathname.split("/").pop();
+      ui.openYoutubeLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+    } catch {
+      ui.openYoutubeLink.href = "#";
+    }
+  }
+
   ui.trailerModal.classList.add("is-open");
   ui.trailerModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";

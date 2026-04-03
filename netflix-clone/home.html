@@ -3,63 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Catalogo personalizado por perfil no projeto estilo Netflix." />
-  <title>Netflix | Catalogo</title>
-  <!-- Estilos modularizados -->
+  <meta name="description" content="Catálogo personalizado por perfil — projeto front-end estilo Netflix." />
+  <meta name="theme-color" content="#141414" />
+  <title>Netflix Clone | Catálogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/catalog.css" />
   <link rel="stylesheet" href="css/trailer-modal.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
+
+  <a class="skip-to-content" href="#main-content">Ir para o conteúdo principal</a>
+
   <header class="app-header">
-    <h1 class="app-header__brand">NETFLIX</h1>
-    <nav class="app-header__actions" aria-label="Navegacao da conta">
-      <a class="app-header__link" href="index.html">Voltar ao inicio</a>
+    <a class="app-header__brand" href="index.html" aria-label="Netflix Clone — Página inicial">NETFLIX</a>
+    <nav class="app-header__actions" aria-label="Navegação da conta">
       <a class="app-header__link app-header__link--primary" href="index.html">Trocar perfil</a>
     </nav>
   </header>
 
-  <main class="catalog-page" aria-labelledby="homeTitle">
-    <section class="catalog-page__intro">
+  <main id="main-content" class="catalog-page" aria-labelledby="homeTitle">
+
+    <section class="catalog-page__intro" aria-live="polite" aria-atomic="true">
       <h2 id="homeTitle">Bem-vindo(a)</h2>
-      <p id="homeDescription">Carregando recomendacoes...</p>
+      <p id="homeDescription">Carregando recomendações...</p>
     </section>
 
     <section class="catalog-section" aria-labelledby="myListTitle">
       <h3 id="myListTitle" class="catalog-section__title">Minha Lista</h3>
-      <p id="minhaListaVazia" class="catalog-section__helper">Voce ainda nao adicionou filmes.</p>
-      <div id="minhaLista" class="catalog-grid" role="list"></div>
+      <p id="minhaListaVazia" class="catalog-section__helper">Você ainda não adicionou filmes.</p>
+      <div id="minhaLista" class="catalog-grid" role="list" aria-label="Minha lista de filmes"></div>
     </section>
 
     <section class="catalog-section" aria-labelledby="suggestionsTitle">
-      <h3 id="suggestionsTitle" class="catalog-section__title">Sugestoes</h3>
-      <div id="catalogoPerfil" class="catalog-grid" role="list"></div>
+      <h3 id="suggestionsTitle" class="catalog-section__title">Sugestões</h3>
+      <div id="catalogoPerfil" class="catalog-grid" role="list" aria-label="Sugestões de filmes"></div>
     </section>
+
   </main>
 
-  <section id="trailerModal" class="trailer-modal" aria-hidden="true">
+  <!-- Modal de Trailer -->
+  <div id="trailerModal" class="trailer-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Reprodutor de trailer">
     <div class="trailer-modal__backdrop" data-close-modal="true"></div>
-    <div class="trailer-modal__dialog" role="dialog" aria-modal="true" aria-label="Trailer">
-      <button id="closeTrailer" class="trailer-modal__close" type="button" aria-label="Fechar trailer">x</button>
-      <button id="soundTrailer" class="trailer-modal__sound" type="button" aria-label="Ativar som">Tocar com som</button>
+    <div class="trailer-modal__dialog">
+      <button id="closeTrailer" class="trailer-modal__close" type="button" aria-label="Fechar trailer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <button id="soundTrailer" class="trailer-modal__sound" type="button" aria-label="Tocar com som">&#128266; Som</button>
+      <a id="openYoutube" class="trailer-modal__youtube" href="#" target="_blank" rel="noopener noreferrer">&#9654; Abrir no YouTube</a>
       <iframe
         id="trailerFrame"
-        title="Trailer"
+        title="Reprodutor de trailer"
         src=""
         allow="autoplay; encrypted-media; picture-in-picture"
         allowfullscreen
+        loading="lazy"
       ></iframe>
     </div>
-  </section>
+  </div>
+
+  <!-- Notificação toast para ações do usuário -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <footer class="app-footer">
-    <p>Projeto front-end para portfolio.</p>
+    <p>Projeto front-end para portfólio — <span class="app-footer__tech">HTML · CSS · JavaScript</span></p>
   </footer>
 
-  <!-- Data Service Layer -->
+  <noscript>
+    <div class="noscript-warning" role="alert">
+      Por favor, ative o JavaScript para usar o Netflix Clone.
+    </div>
+  </noscript>
+
   <script src="js/services/movieService.js"></script>
-  <!-- Lógica Principal -->
   <script src="js/home.js"></script>
 </body>
 </html>

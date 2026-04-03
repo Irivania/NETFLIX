@@ -1,18 +1,41 @@
 /**
  * CATALOG.CSS
- * Estilos do catálogo de filmes (home.html)
- * Inclui: header do app, seções do catálogo, grid de filmes, cards de filmes
+ * Estilos da página de catálogo (home.html).
+ * Seções: header, intro, grade de filmes, cards, ações, footer, toast.
  */
 
-/* App Header */
+/* =============================================
+   HEADER DO APP
+   ============================================= */
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   padding: 16px 24px;
-  border-bottom: 1px solid #2a2a2a;
+  background: linear-gradient(to bottom, rgba(20, 20, 20, 0.98) 80%, transparent);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  backdrop-filter: blur(4px);
+}
+
+/* Logo como link */
+.app-header__brand {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--color-brand);
+  font-family: var(--font-family-brand);
+  user-select: none;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.app-header__brand:hover {
+  opacity: 0.85;
 }
 
 .app-header__actions {
@@ -21,89 +44,170 @@
   gap: 10px;
 }
 
-/* Links de Navegação */
 .app-header__link {
   text-decoration: none;
   color: var(--color-text);
-  border: 1px solid #3b3b3b;
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-size: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.app-header__link:hover {
+  background: var(--color-bg-elevated);
+  border-color: #5a5a5a;
 }
 
 .app-header__link--primary {
   background: var(--color-brand);
   border-color: var(--color-brand);
+  color: var(--color-text);
 }
 
-/* Container Principal */
+.app-header__link--primary:hover {
+  background: var(--color-brand-hover);
+  border-color: var(--color-brand-hover);
+}
+
+/* =============================================
+   CONTAINER PRINCIPAL
+   ============================================= */
 .catalog-page {
-  max-width: 1080px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 32px 24px 48px;
 }
 
-/* Introdução/Contexto */
-.catalog-page__intro p {
-  margin-top: 6px;
-  color: var(--color-text-muted);
+/* =============================================
+   SEÇÃO DE INTRODUÇÃO
+   ============================================= */
+.catalog-page__intro {
+  animation: fadeIn 0.4s ease both;
 }
 
-/* Seção de Catálogo */
-.catalog-section {
-  margin-top: 28px;
-}
-
-.catalog-section__title {
-  font-size: 18px;
+.catalog-page__intro h2 {
+  font-size: clamp(22px, 3vw, 30px);
   font-weight: 700;
 }
 
-.catalog-section__helper {
-  margin-top: 8px;
+.catalog-page__intro p {
+  margin-top: 6px;
   color: var(--color-text-muted);
+  font-size: var(--font-size-base);
 }
 
-/* Grid de Filmes */
+/* =============================================
+   SEÇÃO DO CATÁLOGO
+   ============================================= */
+.catalog-section {
+  margin-top: 40px;
+  animation: fadeIn 0.5s ease both;
+}
+
+.catalog-section__title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.catalog-section__helper {
+  margin-top: 10px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+}
+
+/* =============================================
+   GRADE DE FILMES
+   ============================================= */
 .catalog-grid {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 18px;
 }
 
-/* Movie Card */
+/* =============================================
+   CARD DE FILME
+   ============================================= */
 .movie-card {
   background: var(--color-bg-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  animation: fadeIn 0.4s ease both;
 }
 
 .movie-card:hover {
-  transform: scale(1.04);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-card);
   z-index: 2;
   position: relative;
 }
 
-/* Conteúdo de Mídia do Card */
+/* ---- Zona de mídia (imagem + iframe) ---- */
 .card-media {
   position: relative;
   aspect-ratio: 2 / 3;
   overflow: hidden;
+  background: #0a0a0a;
 }
 
 .card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-base);
 }
 
-/* Trailer Embed (invisível por padrão) */
+.card-media__fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  color: #fff;
+  text-align: center;
+  pointer-events: none;
+}
+
+.card-media__fallback-initials {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.card-media__fallback-title {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.card-media--fallback .card-media__fallback {
+  display: flex;
+}
+
+.card-media--fallback img {
+  opacity: 0;
+}
+
+.card-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+  pointer-events: none;
+}
+
+/* Trailer embed — invisível por padrão */
 .card-trailer {
   position: absolute;
   inset: 0;
@@ -117,54 +221,116 @@
 
 .movie-card.playing .card-trailer {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .movie-card.playing .card-media img {
   opacity: 0;
 }
 
-/* Título do Filme */
-.movie-card h3 {
-  font-size: 15px;
-  line-height: 1.3;
-  padding: 10px 10px 6px;
+.movie-card.playing .card-media__fallback {
+  opacity: 0;
 }
 
-/* Ações do Card (Play + Lista) */
+/* ---- Título do filme ---- */
+.movie-card__title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 10px 12px 6px;
+}
+
+/* ---- Ações do card (Assistir + Lista) ---- */
 .movie-actions {
   display: flex;
+  align-items: center;
   gap: 8px;
-  padding: 0 10px 12px;
+  padding: 0 12px 14px;
+  flex-wrap: wrap;
 }
 
 .play-link {
   color: var(--color-brand);
   text-decoration: none;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+  white-space: nowrap;
 }
 
-/* Botão de Adicionar à Lista */
+.play-link:hover {
+  color: var(--color-brand-hover);
+  text-decoration: underline;
+}
+
 .list-btn {
   border: 1px solid #4b4b4b;
   border-radius: var(--radius-sm);
-  background: #2a2a2a;
+  background: var(--color-bg-elevated);
   color: var(--color-text);
-  font-size: 13px;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   padding: 6px 10px;
   cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.list-btn:hover {
+  background: #3a3a3a;
+  border-color: #6a6a6a;
 }
 
 .list-btn.active {
   border-color: var(--color-brand);
-  background: #4b0d10;
+  background: rgba(229, 9, 20, 0.2);
+  color: #ff6b6b;
 }
 
-/* Footer */
+.list-btn.active:hover {
+  background: rgba(229, 9, 20, 0.35);
+}
+
+/* =============================================
+   TOAST / NOTIFICAÇÃO
+   ============================================= */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 12px 24px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  white-space: nowrap;
+  box-shadow: var(--shadow-card);
+}
+
+.toast.toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
 .app-footer {
   text-align: center;
   color: var(--color-text-secondary);
-  font-size: 12px;
-  padding: 16px;
+  font-size: var(--font-size-xs);
+  padding: 20px 16px;
+  border-top: 1px solid var(--color-border);
+  margin-top: 48px;
+}
+
+.app-footer__tech {
+  opacity: 0.6;
 }

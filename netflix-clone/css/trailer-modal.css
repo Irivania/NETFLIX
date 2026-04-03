@@ -1,10 +1,25 @@
 /**
  * TRAILER-MODAL.CSS
- * Estilos do modal de trailer em tela cheia
- * Inclui: overlay, dialog, iframe, botões de controle (fechar, som)
+ * Modal de trailer em tela cheia com animação de entrada e saída.
+ * Seções: overlay, backdrop, dialog, controles.
  */
 
-/* Container do Modal */
+/* =============================================
+   ANIMAÇÕES
+   ============================================= */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes backdropFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* =============================================
+   CONTAINER DO MODAL
+   ============================================= */
 .trailer-modal {
   position: fixed;
   inset: 0;
@@ -18,14 +33,20 @@
   display: flex;
 }
 
-/* Backdrop (fundo semitransparente) */
+/* =============================================
+   BACKDROP
+   ============================================= */
 .trailer-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.78);
+  background: rgba(0, 0, 0, 0.85);
+  animation: backdropFadeIn 0.25s ease both;
+  cursor: pointer;
 }
 
-/* Dialog (caixa principal com o iframe) */
+/* =============================================
+   DIALOG (caixa do vídeo)
+   ============================================= */
 .trailer-modal__dialog {
   position: relative;
   width: min(960px, 92vw);
@@ -35,39 +56,77 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   z-index: 1;
+  box-shadow: var(--shadow-modal);
+  animation: modalFadeIn 0.3s ease both;
 }
 
 .trailer-modal__dialog iframe {
   width: 100%;
   height: 100%;
   border: 0;
+  display: block;
 }
 
-/* Botões de Ação (Fechar e Som) */
+/* =============================================
+   BOTÕES DE CONTROLE
+   ============================================= */
 .trailer-modal__close,
 .trailer-modal__sound {
   position: absolute;
-  top: 10px;
+  top: 12px;
   border: 0;
-  border-radius: 999px;
-  background: rgba(20, 20, 20, 0.85);
+  border-radius: var(--radius-full);
+  background: rgba(20, 20, 20, 0.9);
   color: var(--color-text);
   cursor: pointer;
   z-index: 2;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.trailer-modal__close:hover,
+.trailer-modal__sound:hover {
+  background: rgba(229, 9, 20, 0.85);
 }
 
 /* Botão de Fechar */
 .trailer-modal__close {
-  right: 10px;
-  width: 32px;
-  height: 32px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
 }
 
 /* Botão de Som */
 .trailer-modal__sound {
-  right: 50px;
-  font-size: 13px;
+  right: 56px;
+  font-size: var(--font-size-sm);
   font-weight: 700;
-  padding: 8px 12px;
+  padding: 8px 14px;
+  font-family: var(--font-family);
+}
+
+/* Link de fallback — Abrir no YouTube */
+.trailer-modal__youtube {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 20, 0.9);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  z-index: 2;
+  white-space: nowrap;
+  transition: background var(--transition-fast);
+  font-family: var(--font-family);
+}
+
+.trailer-modal__youtube:hover {
+  background: var(--color-brand);
 }

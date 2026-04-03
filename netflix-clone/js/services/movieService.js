@@ -13,7 +13,7 @@ const movieService = (() => {
     vania: [
       {
         titulo: "Interestelar",
-        img: "https://img.youtube.com/vi/zSWdZVtXT7E/hqdefault.jpg",
+        img: "assets/interestrelar capa.jpg",
         trailer: "https://www.youtube.com/embed/zSWdZVtXT7E?autoplay=1&mute=1"
       },
       {
@@ -56,13 +56,13 @@ const movieService = (() => {
       },
       {
         titulo: "Annabelle",
-        img: "https://img.youtube.com/vi/paFgQNPGlsg/hqdefault.jpg",
+        img: "assets/annabelle_t84435.webp",
         trailer: "https://www.youtube.com/embed/paFgQNPGlsg?autoplay=1&mute=1"
       },
       {
-        titulo: "A Maldição de Bly Manor",
-        img: "assets/bly-manor.jpg",
-        trailer: "https://www.youtube.com/embed/tykS7QfTWMQ?autoplay=1&mute=1"
+        titulo: "Stranger Things",
+        img: "assets/strangerthings3.webp",
+        trailer: "https://www.youtube.com/embed/b9EkMc79ZSU?autoplay=1&mute=1"
       }
     ],
 
@@ -79,46 +79,46 @@ const movieService = (() => {
       },
       {
         titulo: "Homem-Aranha: Sem Volta para Casa",
-        img: "https://img.youtube.com/vi/JfVOs4VSpmA/hqdefault.jpg",
+        img: "assets/homem_aranha_poster_sem_volta.jpeg",
         trailer: "https://www.youtube.com/embed/JfVOs4VSpmA?autoplay=1&mute=1"
       },
       {
         titulo: "Pantera Negra",
-        img: "https://img.youtube.com/vi/xjDjIWPwcPU/hqdefault.jpg",
+        img: "assets/pantera negra.jpg",
         trailer: "https://www.youtube.com/embed/xjDjIWPwcPU?autoplay=1&mute=1"
       },
       {
         titulo: "Aquaman",
-        img: "https://image.tmdb.org/t/p/w500/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg",
-        trailer: "https://www.youtube.com/embed/-cP5VWnEsUQ?autoplay=1&mute=1"
+        img: "assets/aquaman-2-o-reino-perdido1702492542.png",
+        trailer: "https://www.youtube.com/embed/2wcj6SrX4zw?autoplay=1&mute=1"
       }
     ],
 
     matheus: [
       {
-        titulo: "Peppa Pig: O Filme",
-        img: "assets/peppa-pig.jpg",
-        trailer: "https://www.youtube.com/embed/7iUu2bP0q7E?autoplay=1&mute=1"
+        titulo: "Inside Out 2",
+        img: "assets/inside out 2.jpg",
+        trailer: "https://www.youtube.com/embed/LEjhY15eCx0?autoplay=1&mute=1"
       },
       {
         titulo: "Toy Story 4",
-        img: "https://img.youtube.com/vi/wmiIUN-7qhE/hqdefault.jpg",
+        img: "assets/toy story.jpg",
         trailer: "https://www.youtube.com/embed/wmiIUN-7qhE?autoplay=1&mute=1"
       },
       {
         titulo: "Frozen 2",
-        img: "https://img.youtube.com/vi/Zi4LMpSDccc/hqdefault.jpg",
+        img: "assets/frozen.jpeg",
         trailer: "https://www.youtube.com/embed/Zi4LMpSDccc?autoplay=1&mute=1"
       },
       {
         titulo: "O Filme Super Mario Bros",
-        img: "https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
-        trailer: "https://www.youtube.com/embed/kN-eDJJGEu8?autoplay=1&mute=1"
+        img: "assets/super mario.jpg",
+        trailer: "https://www.youtube.com/embed/TnGl01FkMMo?autoplay=1&mute=1"
       },
       {
         titulo: "Encanto",
-        img: "https://image.tmdb.org/t/p/w500/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg",
-        trailer: "https://www.youtube.com/embed/ZQ9V2nEiMXc?autoplay=1&mute=1"
+        img: "assets/encanto.jpg",
+        trailer: "https://www.youtube.com/embed/CaimKeDcudo?autoplay=1&mute=1"
       }
     ]
   };

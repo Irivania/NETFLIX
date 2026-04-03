@@ -1,40 +1,134 @@
 /**
  * BASE.CSS
- * Estilos globais, CSS variables (design tokens), e reset
+ * Design tokens (CSS variables), reset global e estilos base reutilizáveis.
+ * Importado em todas as páginas.
  */
 
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
 :root {
+  /* Cores */
   --color-bg: #141414;
   --color-bg-soft: #1f1f1f;
+  --color-bg-elevated: #2a2a2a;
   --color-border: #2e2e2e;
   --color-text: #ffffff;
   --color-text-muted: #b7b7b7;
   --color-text-secondary: #808080;
   --color-brand: #e50914;
+  --color-brand-hover: #f40612;
+
+  /* Tipografia */
+  --font-family: 'Inter', Arial, sans-serif;
+  --font-family-brand: 'Arial Black', Arial, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-md: 18px;
+  --font-size-lg: 24px;
+
+  /* Bordas */
   --radius-sm: 6px;
   --radius-md: 10px;
+  --radius-full: 999px;
+
+  /* Sombras */
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.7);
+  --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.9);
+
+  /* Transições */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
 }
 
-* {
+/* =============================================
+   RESET
+   ============================================= */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* =============================================
+   ESTILOS BASE
+   ============================================= */
 body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-family);
   background: var(--color-bg);
   color: var(--color-text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Brand Logo */
-.brand-logo,
-.app-header__brand {
+/* Skip to content — acessibilidade para teclado */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--color-brand);
+  color: var(--color-text);
+  padding: 10px 20px;
+  font-weight: 700;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Foco visível global para navegação por teclado */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* Aviso para JavaScript desativado */
+.noscript-warning {
+  background: var(--color-brand);
+  color: var(--color-text);
+  text-align: center;
+  padding: 16px;
+  font-weight: 700;
+}
+
+/* Logo da marca (Netflix Clone) */
+.brand-logo {
   font-size: 30px;
   font-weight: 900;
   letter-spacing: -1px;
   color: var(--color-brand);
-  font-family: Arial Black, Arial, sans-serif;
+  font-family: var(--font-family-brand);
   user-select: none;
+}
+
+/* =============================================
+   ANIMAÇÕES DE ENTRADA
+   ============================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Respeita preferência do usuário por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

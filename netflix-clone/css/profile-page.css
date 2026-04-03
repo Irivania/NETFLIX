@@ -1,15 +1,20 @@
 /**
  * PROFILE-PAGE.CSS
- * Estilos da página de seleção de perfis (index.html)
- * Inclui: header da marca, container principal, lista de perfis, botão de gerenciamento
+ * Estilos da página de seleção de perfis (index.html).
+ * Seções: header, container, lista de perfis, card de perfil, botão de gerenciar.
  */
 
+/* =============================================
+   PÁGINA DE PERFIS
+   ============================================= */
 .profiles-page {
   display: flex;
   flex-direction: column;
 }
 
-/* Header da Marca */
+/* =============================================
+   HEADER DA MARCA
+   ============================================= */
 .brand-header {
   position: fixed;
   top: 0;
@@ -17,10 +22,12 @@
   width: 100%;
   z-index: 10;
   padding: 20px 40px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.72) 0%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
 }
 
-/* Container Principal */
+/* =============================================
+   CONTAINER PRINCIPAL
+   ============================================= */
 .profile-page__main {
   flex: 1;
   min-height: 100vh;
@@ -28,18 +35,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 24px 40px;
+  padding: 100px 24px 60px;
+  animation: fadeIn 0.5s ease both;
 }
 
-/* Título da Página */
+/* =============================================
+   TÍTULO DA PÁGINA
+   ============================================= */
 .profile-page__title {
   font-size: clamp(28px, 4vw, 48px);
   font-weight: 400;
   margin-bottom: 48px;
+  letter-spacing: 0.5px;
 }
 
-/* Lista de Perfis */
-.profiles,
+/* =============================================
+   LISTA DE PERFIS
+   ============================================= */
 .profile-page__list {
   list-style: none;
   display: flex;
@@ -48,7 +60,9 @@
   gap: 28px;
 }
 
-/* Card do Perfil */
+/* =============================================
+   CARD DO PERFIL
+   ============================================= */
 .profile-card {
   display: flex;
   flex-direction: column;
@@ -57,59 +71,89 @@
   background: transparent;
   border: none;
   user-select: none;
-  transition: transform 0.15s ease;
+  transition: transform var(--transition-fast);
+  animation: fadeInDown 0.4s ease both;
 }
 
 .profile-card:hover {
-  transform: scale(1.06);
+  transform: scale(1.07);
 }
 
 .profile-card:focus-visible {
   outline: 2px solid var(--color-text);
-  outline-offset: 6px;
+  outline-offset: 8px;
+  border-radius: var(--radius-sm);
 }
 
-/* Imagem do Avatar */
-.profile-card img {
+/* Avatar */
+.profile-card__avatar {
   width: 150px;
   height: 150px;
   border-radius: var(--radius-sm);
   object-fit: cover;
   border: 3px solid transparent;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--transition-fast);
+  background: var(--color-bg-elevated);
 }
 
-.profile-card:hover img {
+.profile-card:hover .profile-card__avatar {
   border-color: var(--color-text);
 }
 
-/* Nome do Perfil */
-.profile-card p {
-  margin-top: 12px;
-  color: var(--color-text-secondary);
-  font-size: 16px;
-  transition: color 0.15s ease;
+/* Avatar fallback (imagem não encontrada) */
+.profile-card__avatar-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: var(--radius-sm);
+  border: 3px solid transparent;
+  background: var(--color-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--color-text-muted);
+  transition: border-color var(--transition-fast);
+  user-select: none;
 }
 
-.profile-card:hover p {
+.profile-card:hover .profile-card__avatar-placeholder {
+  border-color: var(--color-text);
+}
+
+/* Nome do perfil */
+.profile-card__name {
+  margin-top: 12px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.profile-card:hover .profile-card__name {
   color: var(--color-text);
 }
 
-/* Botão de Gerenciar Perfis */
+/* =============================================
+   BOTÃO DE GERENCIAR PERFIS
+   ============================================= */
 .profile-page__manage-btn {
   margin-top: 52px;
   border: 1px solid var(--color-text-secondary);
   background: transparent;
   color: var(--color-text-secondary);
   padding: 10px 28px;
-  font-size: 15px;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  border-radius: 2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
 }
 
 .profile-page__manage-btn:hover {
   color: var(--color-text);
   border-color: var(--color-text);
+  background: rgba(255, 255, 255, 0.05);
 }

@@ -3,30 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Tela de seleção de perfis do projeto estilo Netflix." />
-  <title>Netflix | Perfis</title>
-  <!-- Estilos modularizados -->
+  <meta name="description" content="Projeto front-end estilo Netflix com múltiplos perfis, catálogo personalizado e trailers em hover." />
+  <meta name="theme-color" content="#141414" />
+  <title>Netflix Clone | Selecionar Perfil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/profile-page.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body class="profiles-page">
 
-  <header class="brand-header profile-page__header" aria-label="Cabecalho da Netflix">
-    <span class="brand-logo" aria-label="Netflix">NETFLIX</span>
+  <a class="skip-to-content" href="#profilesTitle">Ir para o conteúdo principal</a>
+
+  <header class="brand-header" aria-label="Cabeçalho Netflix Clone">
+    <span class="brand-logo" aria-label="Netflix Clone">NETFLIX</span>
   </header>
 
-  <main class="profile-page__main" aria-labelledby="profilesTitle">
-    <h1 id="profilesTitle" class="profile-page__title">Quem esta assistindo?</h1>
+  <main id="main-content" class="profile-page__main" aria-labelledby="profilesTitle">
+    <h1 id="profilesTitle" class="profile-page__title">Quem está assistindo?</h1>
 
-    <section class="profile-page__content" aria-label="Lista de perfis">
-      <ul id="profiles" class="profiles profile-page__list"></ul>
+    <section class="profile-page__content" aria-label="Lista de perfis disponíveis">
+      <ul id="profiles" class="profile-page__list" role="list"></ul>
     </section>
 
     <button class="profile-page__manage-btn" type="button" aria-label="Gerenciar perfis">
       Gerenciar Perfis
     </button>
   </main>
+
+  <noscript>
+    <div class="noscript-warning" role="alert">
+      Por favor, ative o JavaScript para usar o Netflix Clone.
+    </div>
+  </noscript>
 
   <script src="js/perfis.js"></script>
 </body>

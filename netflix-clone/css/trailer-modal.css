@@ -1,0 +1,73 @@
+/**
+ * TRAILER-MODAL.CSS
+ * Estilos do modal de trailer em tela cheia
+ * Inclui: overlay, dialog, iframe, botões de controle (fechar, som)
+ */
+
+/* Container do Modal */
+.trailer-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.trailer-modal.is-open {
+  display: flex;
+}
+
+/* Backdrop (fundo semitransparente) */
+.trailer-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+}
+
+/* Dialog (caixa principal com o iframe) */
+.trailer-modal__dialog {
+  position: relative;
+  width: min(960px, 92vw);
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid #2d2d2d;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.trailer-modal__dialog iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Botões de Ação (Fechar e Som) */
+.trailer-modal__close,
+.trailer-modal__sound {
+  position: absolute;
+  top: 10px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.85);
+  color: var(--color-text);
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Botão de Fechar */
+.trailer-modal__close {
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+}
+
+/* Botão de Som */
+.trailer-modal__sound {
+  right: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 12px;
+}

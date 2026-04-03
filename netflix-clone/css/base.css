@@ -1,0 +1,40 @@
+/**
+ * BASE.CSS
+ * Estilos globais, CSS variables (design tokens), e reset
+ */
+
+:root {
+  --color-bg: #141414;
+  --color-bg-soft: #1f1f1f;
+  --color-border: #2e2e2e;
+  --color-text: #ffffff;
+  --color-text-muted: #b7b7b7;
+  --color-text-secondary: #808080;
+  --color-brand: #e50914;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+/* Brand Logo */
+.brand-logo,
+.app-header__brand {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--color-brand);
+  font-family: Arial Black, Arial, sans-serif;
+  user-select: none;
+}

@@ -3,13 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netflix Clone - Perfis</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Tela de seleção de perfis do projeto estilo Netflix." />
+  <title>Netflix | Perfis</title>
+  <!-- Estilos modularizados -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/profile-page.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 </head>
-<body>
-  <main class="container">
-    <h1>Quem esta assistindo?</h1>
-    <section id="profiles" class="profiles"></section>
+<body class="profiles-page">
+
+  <header class="brand-header profile-page__header" aria-label="Cabecalho da Netflix">
+    <span class="brand-logo" aria-label="Netflix">NETFLIX</span>
+  </header>
+
+  <main class="profile-page__main" aria-labelledby="profilesTitle">
+    <h1 id="profilesTitle" class="profile-page__title">Quem esta assistindo?</h1>
+
+    <section class="profile-page__content" aria-label="Lista de perfis">
+      <ul id="profiles" class="profiles profile-page__list"></ul>
+    </section>
+
+    <button class="profile-page__manage-btn" type="button" aria-label="Gerenciar perfis">
+      Gerenciar Perfis
+    </button>
   </main>
 
   <script src="js/perfis.js"></script>

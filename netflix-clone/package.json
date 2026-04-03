@@ -1,0 +1,29 @@
+{
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "Clone Netflix com vanilla JavaScript, HTML5 e CSS3. Projeto front-end para portfolio.",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "lint": "eslint js/ --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "serve": "python -m http.server 8000",
+    "dev": "npm run format && npm run lint"
+  },
+  "keywords": [
+    "netflix",
+    "clone",
+    "javascript",
+    "html5",
+    "css3",
+    "frontend"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^8.50.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0"
+  }
+}

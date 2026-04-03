@@ -1,0 +1,20 @@
+# Dependências
+node_modules/
+dist/
+build/
+
+# Arquivos gerados
+*.min.js
+*.min.css
+
+# Git
+.git/
+.gitignore
+
+# Editor
+.vscode/
+.idea/
+
+# Cache
+.cache/
+.eslintcache

@@ -3,19 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netflix Clone - Home</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Catalogo personalizado por perfil no projeto estilo Netflix." />
+  <title>Netflix | Catalogo</title>
+  <!-- Estilos modularizados -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/catalog.css" />
+  <link rel="stylesheet" href="css/trailer-modal.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
-  <header class="topbar">
-    <h1>Netflix Clone</h1>
+  <header class="app-header">
+    <h1 class="app-header__brand">NETFLIX</h1>
+    <nav class="app-header__actions" aria-label="Navegacao da conta">
+      <a class="app-header__link" href="index.html">Voltar ao inicio</a>
+      <a class="app-header__link app-header__link--primary" href="index.html">Trocar perfil</a>
+    </nav>
   </header>
 
-  <main class="container">
-    <h2>Bem-vindo(a)</h2>
-    <p>Essa e a tela principal.</p>
+  <main class="catalog-page" aria-labelledby="homeTitle">
+    <section class="catalog-page__intro">
+      <h2 id="homeTitle">Bem-vindo(a)</h2>
+      <p id="homeDescription">Carregando recomendacoes...</p>
+    </section>
+
+    <section class="catalog-section" aria-labelledby="myListTitle">
+      <h3 id="myListTitle" class="catalog-section__title">Minha Lista</h3>
+      <p id="minhaListaVazia" class="catalog-section__helper">Voce ainda nao adicionou filmes.</p>
+      <div id="minhaLista" class="catalog-grid" role="list"></div>
+    </section>
+
+    <section class="catalog-section" aria-labelledby="suggestionsTitle">
+      <h3 id="suggestionsTitle" class="catalog-section__title">Sugestoes</h3>
+      <div id="catalogoPerfil" class="catalog-grid" role="list"></div>
+    </section>
   </main>
 
+  <section id="trailerModal" class="trailer-modal" aria-hidden="true">
+    <div class="trailer-modal__backdrop" data-close-modal="true"></div>
+    <div class="trailer-modal__dialog" role="dialog" aria-modal="true" aria-label="Trailer">
+      <button id="closeTrailer" class="trailer-modal__close" type="button" aria-label="Fechar trailer">x</button>
+      <button id="soundTrailer" class="trailer-modal__sound" type="button" aria-label="Ativar som">Tocar com som</button>
+      <iframe
+        id="trailerFrame"
+        title="Trailer"
+        src=""
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    <p>Projeto front-end para portfolio.</p>
+  </footer>
+
+  <!-- Data Service Layer -->
+  <script src="js/services/movieService.js"></script>
+  <!-- Lógica Principal -->
   <script src="js/home.js"></script>
 </body>
 </html>
